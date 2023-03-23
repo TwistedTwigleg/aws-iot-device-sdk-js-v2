@@ -66,19 +66,19 @@ jobs:
         # `docs` each time.
         force: true
 
-    - name: configure AWS credentials (Release)
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        role-to-assume: arn:aws:iam::180635532705:role/CI_V2_RELEASE_S3_ROLE
-        aws-region: us-east-1
+    # - name: configure AWS credentials (Release)
+    #   uses: aws-actions/configure-aws-credentials@v1
+    #   with:
+    #     role-to-assume: arn:aws:iam::180635532705:role/CI_V2_RELEASE_S3_ROLE
+    #     aws-region: us-east-1
 
-    - name: "Create VERSION file and trigger release"
-      run: |
-        version=$(git describe --tags --abbrev=0)
-        version_without_v=$(echo ${version} | cut -f2 -dv)
-        echo "${version_without_v}" > VERSION
+    # - name: "Create VERSION file and trigger release"
+    #   run: |
+    #     version=$(git describe --tags --abbrev=0)
+    #     version_without_v=$(echo ${version} | cut -f2 -dv)
+    #     echo "${version_without_v}" > VERSION
 
-        zip VERSION.zip VERSION
-        export S3_URL=$(aws secretsmanager get-secret-value --secret-id ci/javascript_v2_version --query "SecretString" | cut -f2 -d\")
-        aws s3 cp VERSION.zip $S3_URL
+    #     zip VERSION.zip VERSION
+    #     export S3_URL=$(aws secretsmanager get-secret-value --secret-id ci/javascript_v2_version --query "SecretString" | cut -f2 -d\")
+    #     aws s3 cp VERSION.zip $S3_URL
 
