@@ -50,6 +50,7 @@ def main():
             print(f"v{highest[0]}.{highest[1]}.{highest[2]}")
             sys.exit(0)
         else:
+            print(f"v0.0.0")
             sys.exit(-1)
 
     version_tuple = parsed_commands.version.split(".")
